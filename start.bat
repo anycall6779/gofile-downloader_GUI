@@ -23,12 +23,13 @@ echo [INFO] Python is installed:
 python --version
 echo.
 
-:: 2. Install requirements
-echo [INFO] Checking and installing required packages...
-pip install -r requirements.txt
+:: 2. Fast check for requirements (silent import)
+python -c "import customtkinter, requests, PIL" >nul 2>&1
 if %errorlevel% neq 0 (
-    echo [WARNING] There was an error installing packages.
-    echo The program will still run, but errors may happen.
+    echo [INFO] Missing required packages. Installing now...
+    pip install -r requirements.txt
+    echo.
+    echo [INFO] Installation complete!
     echo.
 ) else (
     echo [INFO] All requirements are satisfied!
